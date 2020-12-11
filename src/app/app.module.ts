@@ -1,14 +1,42 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+// ngrx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducers } from './app.reducers';
 
 import { AppComponent } from './app.component';
+import { FooterComponent } from './footer/footer.component';
+import { TodoComponent } from './todo/todo.component';
+import { TodosListComponent } from './todo/todos-list/todos-list.component';
+import { TodosItemComponent } from './todo/todos-item/todos-item.component';
+import { TodoFooterComponent } from './todo/todo-footer/todo-footer.component';
+import { TodoAddComponent } from './todo/todo-add/todo-add.component';
+import { environment } from '../environments/environment';
+import { FilterPipe } from './filter/filter.pipe'; // Angular CLI environment
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    TodoComponent,
+    TodosListComponent,
+    TodosItemComponent,
+    TodoFooterComponent,
+    TodoAddComponent,
+    FilterPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot(appReducers),
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
